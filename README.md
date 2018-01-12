@@ -2,4 +2,3 @@
 
 解密脚本为decrypt.py
 
-详细信息参考：[简书](https://www.jianshu.com/p/a44177e82ef7)
