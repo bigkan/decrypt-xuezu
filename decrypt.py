@@ -3,8 +3,9 @@ import io
 import os
 import struct
 
-def decryptPNG(infilename,filename):
-	outfilename = "E:\\crackme\\血族\\out\\png" + os.sep + filename
+outdirpath = "/path/to/your/output"
+
+def decryptPNG(infilename, filename, outfilename):
 	with open(infilename,'rb') as pngfile:
 		data = pngfile.read()
 		pngfile.close()
@@ -36,8 +37,7 @@ def decryptPNG(infilename,filename):
 		outpng.close()
 
 		
-def decryptJPG(infilename,filename):
-	outfilename = "E:\\crackme\\血族\\out\\jpg" + os.sep + filename
+def decryptJPG(infilename,filename, outfilename):
 	size = os.path.getsize(infilename)
 	with open(infilename,'rb') as jpgfile:
 		data = jpgfile.read()
@@ -73,8 +73,7 @@ def decryptJPG(infilename,filename):
 					break;
 		outjpg.close()
 					
-def decryptTXT(infilename,filename,dir):
-	outfilename = "E:\\crackme\\血族\\out\\" + dir + os.sep + filename
+def decryptTXT(infilename,filename, outfilename,dir):
 	size = os.path.getsize(infilename)
 	with open(infilename,'rb') as txtfile:
 		data = txtfile.read()
@@ -116,38 +115,45 @@ def decryptTXT(infilename,filename,dir):
 		
 if __name__ == '__main__':
 
-	filedir = "E:\\crackme\\血族\\xuezu\\assets"
+	filedir = "/path/to/your/com.sdg.woool.xuezu"
 	pngnum = 0
 	jpgnum = 0
 	luanum = 0
 	csvnum = 0
 	xmlnum = 0
+	if not os.path.exists(outdirpath):
+		os.mkdir(outdirpath)
 	for path,subdirs,files in os.walk(filedir):
+		print (" @ ", path)
+		for subdir in subdirs:
+			relpath = os.path.relpath(path + os.sep + subdir, filedir)
+			outdirname = outdirpath + os.sep + relpath
+			if not os.path.exists(outdirname):
+				print ("mkdir: ", outdirname)
+				os.mkdir(outdirname)
 		for filename in files:
+			infilename = path + os.sep + filename
+			relpath = os.path.relpath(infilename, filedir)
+			outfilename = outdirpath + os.sep + relpath
 			if filename.endswith('.png'):
 				pngnum += 1
-				infilename = path + os.sep + filename
-				decryptPNG(infilename,filename)
+				decryptPNG(infilename,filename, outfilename)
 				print(filename + "已被修复")
 			elif filename.endswith('.jpg'):
 				jpgnum += 1
-				infilename = path + os.sep + filename
-				decryptJPG(infilename,filename)
+				decryptJPG(infilename,filename, outfilename)
 				print(filename + "已被修复")
 			elif filename.endswith('.lua'):
 				luanum += 1
-				infilename = path + os.sep + filename
-				decryptTXT(infilename,filename,'lua')
+				decryptTXT(infilename,filename, outfilename,'lua')
 				print(filename + "已被修复")
 			elif filename.endswith('.csv'):
 				csvnum += 1
-				infilename = path + os.sep + filename
-				decryptTXT(infilename,filename,'csv')
+				decryptTXT(infilename,filename, outfilename,'csv')
 				print(filename + "已被修复")
 			elif filename.endswith('.xml'):
 				xmlnum += 1
-				infilename = path + os.sep + filename
-				decryptTXT(infilename,filename,'xml')
+				decryptTXT(infilename,filename, outfilename,'xml')
 				print(filename + "已被修复")
 	
 	print("[**************************************]")
