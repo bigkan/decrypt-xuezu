@@ -138,23 +138,23 @@ if __name__ == '__main__':
 			if filename.endswith('.png'):
 				pngnum += 1
 				decryptPNG(infilename,filename, outfilename)
-				print(filename + ""已被修复")
+				print(filename + "已被修复")
 			elif filename.endswith('.jpg'):
 				jpgnum += 1
 				decryptJPG(infilename,filename, outfilename)
-				print(filename + ""已被修复")
+				print(filename + "已被修复")
 			elif filename.endswith('.lua'):
 				luanum += 1
 				decryptTXT(infilename,filename, outfilename,'lua')
-				print(filename + ""已被修复")
+				print(filename + "已被修复")
 			elif filename.endswith('.csv'):
 				csvnum += 1
 				decryptTXT(infilename,filename, outfilename,'csv')
-				print(filename + ""已被修复")
+				print(filename + "已被修复")
 			elif filename.endswith('.xml'):
 				xmlnum += 1
 				decryptTXT(infilename,filename, outfilename,'xml')
-				print(filename + ""已被修复")
+				print(filename + "已被修复")
 	
 	print("[**************************************]")
 	print("")
